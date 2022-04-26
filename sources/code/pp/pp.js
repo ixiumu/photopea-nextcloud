@@ -4463,8 +4463,8 @@ if(h)A=1-A;B.Tj.push(q.dv(3)+"<stop offset=\""+q.BU(A)+"\" stop-color=\""+CSS.Ov
 ja.y8=function(L,B,C,q,w){var z=[],$=ja.y8,k=!1,S={s5:L,Wj:B,aS:[!0,!0,!0],yN:!1,$_:C,a6v:0};S.L$=Math.round(Math.max(L,B)*(.02+$.Pb(S)*.03));
 S.m9=$.a3f(S);S.$v=$.ahl(S.m9,($.Pb(S)<.5?-1:1)*(.2+$.Pb(S)*.3));if($.Pb(S)<.5){var Y=S.m9;S.m9=S.$v;
 S.$v=Y}S.aiz=$.Pb(S)<.4&&$.avD(S.$v,{p:1,z:1,$:1})>.3;S.ar_=$.Pb(S)<.5?0:1;z.push("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 "+L+" "+B+"\" width=\""+L+"\" height=\""+B+"\">");
-S.aI=q[Math.floor($.C9(S)*q.length)];S.i4=q[Math.floor($.C9(S)*q.length)];z.push("<style>");z.push("@font-face {  font-family: "+S.aI[2]+";  src: url(rsrc/fonts/"+S.aI[5]+");  }");
-z.push("@font-face {  font-family: "+S.i4[2]+";  src: url(rsrc/fonts/"+S.i4[5]+");  }");z.push("</style>");
+S.aI=q[Math.floor($.C9(S)*q.length)];S.i4=q[Math.floor($.C9(S)*q.length)];z.push("<style>");z.push("@font-face {  font-family: "+S.aI[2]+";  src: url("+fonts_server+S.aI[5]+");  }");
+z.push("@font-face {  font-family: "+S.i4[2]+";  src: url("+fonts_server+S.i4[5]+");  }");z.push("</style>");
 var F=[0,0,L,B],u=F;if(w==null)z.push("<path style=\"fill: "+$.cm(S.m9)+"\" d=\""+$.Rect(F[0],F[1],F[2]-F[0],F[3]-F[1])+"\" id=\"Background\" />");
 else{S.yN=!0;$.YN(S,F,z,w)}if($.Pb(S)<.25&&!S.yN){S.aS[0]=S.aS[2]=!1;$.a7P(F,S,z);u=F}else if($.Pb(S)<.25||S.yN)u=F;
 else{var f=.52+$.Pb(S)*.2;if($.Pb(S)<.5)f=1-f;var E=F.slice(0),t=F.slice(0);if($.Pb(S)<.5)E[2]=t[0]=Math.round(f*L);
@@ -12698,7 +12698,7 @@ u<Y.length;u++){this.P.map[Y[u].B.id]=Y[u];Y[u].ix=l;Y[u].a5o=u;var f=dj.get(Y[u
 k+="\t"+JSON.stringify(Y[u].B.name)+", "+(F?"\""+F.GV+"\"":"null")+", "+Y[u].B.id+", // "+f+"\n"}this.P.rC[l]=0}for(var l=0;
 l<this.P.fs.length;l++)this.P.map[this.P.fs[l].B.id]=this.P.fs[l];for(var l=0;l<this.P.$w.length;l++)this.P.map[this.P.$w[l].B.id]=this.P.$w[l];
 this.YJ={alh:!1,fl:null,qS:0,h_:{hU:[],NG:[],list:[],u8:null},ev:[],a0L:[],w2:[],jR:[],WR:[],acZ:[],apE:[],apK:[],kB:[aE.et()],T7:[],Mu:[],xp:null,gd:0,Ui:{I6:1,Zz:JSON.parse(JSON.stringify(gT.j0[0]))},Ym:JSON.parse(JSON.stringify(gT.$H.default)),a3b:[null].concat(gT.j0),afa:[null].concat(gT.j0),PU:new f2(function(d){var h=new f0(O.E.W,!0);
-h.data={O:O.J.a9,vn:{url:"rsrc/fonts/"+d}};this.w(h)}.bind(this)),Z_:{rV:[],Pk:null,QV:null},font:null,Rh:[],sV:16711680,tb:0,D4:!1,wn:!0,Pz:{Kr:!0,eO:!1,ax:!0,tf:!0,iD:!0,zK:!0,DA:20,tZ:0,Bg:0,Fj:0},il:!0,Xv:[!0,!0,!1,!0,!0],w4:[0,1,2,3,5,6,7,9,10,16,17,100],jM:1,Sf:!0,lg:{},cw:!0,a4$:!1,compact:!1,Vp:1,ll:!0,mK:null,Yi:{a7Q:!1,afo:!1,Id:{},zy:null},a6O:0,adQ:null,n4:null,a8l:null,IB:null};
+h.data={O:O.J.a9,vn:{url:fonts_server+d}};this.w(h)}.bind(this)),Z_:{rV:[],Pk:null,QV:null},font:null,Rh:[],sV:16711680,tb:0,D4:!1,wn:!0,Pz:{Kr:!0,eO:!1,ax:!0,tf:!0,iD:!0,zK:!0,DA:20,tZ:0,Bg:0,Fj:0},il:!0,Xv:[!0,!0,!1,!0,!0],w4:[0,1,2,3,5,6,7,9,10,16,17,100],jM:1,Sf:!0,lg:{},cw:!0,a4$:!1,compact:!1,Vp:1,ll:!0,mK:null,Yi:{a7Q:!1,afo:!1,Id:{},zy:null},a6O:0,adQ:null,n4:null,a8l:null,IB:null};
 this.a31={k3:new fp,qr:new hr};this.YJ.Z_=jd.avk();this.BD=new fE;this.qd=new fz;this.QM=new k5(this.P,!0);
 this.xu=new fq;this.LP=new fn(this);this.Q5=N.L("div");this.WW=!1;this.PO=this.al1.bind(this);N.bT(this.LP.h,"mainblock");
 this.GC.parent=this.BD.parent=this.qd.parent=this.QM.parent=this.xu.parent=this.LP.parent=this;this.LP.m(O.E.o,this.bh,this);

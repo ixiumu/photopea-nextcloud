@@ -71,15 +71,15 @@ class FileController extends Controller {
 
 	}
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * 
-	 * @param string $path
-	 */
-	public function fonts(string $path) {
-		$client = $this->clientService->newClient();
-		$response = $client->get('https://ixiumu.github.io/photopea/rsrc/fonts/' . $path);
-		return new DataDownloadResponse($response->getBody(), '', 'application/font');
-	}
+	// /**
+	//  * @NoAdminRequired
+	//  * @NoCSRFRequired
+	//  * 
+	//  * @param string $path
+	//  */
+	// public function fonts(string $path) {
+	// 	$client = $this->clientService->newClient();
+	// 	$response = $client->get('https://ixiumu.github.io/photopea/rsrc/fonts/' . $path);
+	// 	return new DataDownloadResponse($response->getBody(), '', 'application/font');
+	// }
 }
