@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>files_photopea</id>
+    <name>Photopea</name>
+    <summary>Online Photo Editor</summary>
+    <description><![CDATA[Photopea Online Photo Editor lets you edit photos, apply effects, filters, add text, crop or resize pictures. Do Online Photo Editing in your browser for free!]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author>xiumu</author>
+    <namespace>Files_Photopea</namespace>
+	<category>files</category>
+	<category>office</category>
+    <bugs>https://www.photopea.com/</bugs>
+    <dependencies>
+        <nextcloud min-version="14" max-version="24"/>
+    </dependencies>
+</info>
