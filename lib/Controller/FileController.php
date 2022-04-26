@@ -79,7 +79,7 @@ class FileController extends Controller {
 	 */
 	public function fonts(string $path) {
 		$client = $this->clientService->newClient();
-		$response = $client->get('https://www.photopea.com/rsrc/fonts/' . $path);
+		$response = $client->get('https://ixiumu.github.io/photopea/rsrc/fonts/' . $path);
 		return new DataDownloadResponse($response->getBody(), '', 'application/font');
 	}
 }
