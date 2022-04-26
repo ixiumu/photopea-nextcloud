@@ -44,8 +44,8 @@ var Photopea = {
 		var $iframe;
 		var shown = true;
 		var viewer = OC.generateUrl('/apps/files_photopea/sources/index.html');
-		var file = window.location.origin+OC.generateUrl('/apps/files_photopea/io'+this._file.fullName);
-		var url = viewer+'#'+encodeURI('{"files":["'+file+'"],"resources":[],"server":{"version":1,"url":"'+file+'","formats":["'+this._file.fullName.split('.').pop().toUpperCase()+'"]}}');
+		var api = window.location.origin+OC.generateUrl('/apps/files_photopea/io');
+		var url = viewer+'#'+encodeURI('{"files":["'+api+this._file.fullName+'"],"resources":[],"server":{"version":1,"url":"'+api+'/api","formats":["'+this._file.fullName.split('.').pop().toUpperCase()+'"]}}');
 
 		window.open(url);
 
@@ -154,10 +154,8 @@ Photopea.Extensions.PSD = {
 Photopea.NewFileMenuPlugin = {
 
 	attach: function(menu) {
-		var fileList = menu.fileList;
-
 		// only attach to main file list, public view is not supported yet
-		if (fileList.id !== 'files') {
+		if (menu.fileList.id !== 'files') {
 			return;
 		}
 
@@ -169,9 +167,24 @@ Photopea.NewFileMenuPlugin = {
 			iconClass: 'icon-image',
 			fileType: 'x-photoshop',
 			actionHandler: function(name) {
-				var dir = fileList.getCurrentDirectory();
-				fileList.createFile(name).then(function() {
-					
+				var dir = menu.fileList.getCurrentDirectory();
+				// menu.fileList.createFile(name).then(function() {
+				// 	//
+				// });
+				
+				$.post(OC.generateUrl('apps/files_photopea/create'),
+				{
+					name: name,
+					dir: dir
+				},
+				function onSuccess(response) {
+					if (response.error) {
+						OCP.Toast.error(response.error);
+						return;
+					}
+
+					menu.fileList.add(response, { animate: true });
+					OCP.Toast.success(t('files_photopea', 'File created'));
 				});
 			}
 		});
