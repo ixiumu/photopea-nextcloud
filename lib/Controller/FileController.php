@@ -15,11 +15,11 @@ class FileController extends Controller {
 	/** @var UserId */
 	private $UserId;
 
-    /** @var IRootStorage */
-    private $storage;
+	/** @var IRootStorage */
+	private $storage;
 
-    /** @var IClientService */
-    private $clientService;
+	/** @var IClientService */
+	private $clientService;
 
 	/** @var IL10N */
 	private $l10n;
@@ -57,37 +57,37 @@ class FileController extends Controller {
 	public function create(string $name, string $dir) {
 		
 		if (empty($name) || substr($name , -4) !== ".psd") {
-            return ["error" => "File name not found"];
-        }
+			return ["error" => "File name not found"];
+		}
 
 		$userFolder = $this->storage->getUserFolder($this->UserId);
 
 		if ($userFolder instanceof File) {
-            return ["error" => $this->l10n->t("You don't have enough permission")];
-        }
+			return ["error" => $this->l10n->t("You don't have enough permission")];
+		}
 
 		$folder = $userFolder->get($dir);
 
-        if ($folder === null) {
-            return ["error" => $this->l10n->t("The required folder was not found")];
-        }
-        if (!($folder->isCreatable() && $folder->isUpdateable())) {
+		if ($folder === null) {
+			return ["error" => $this->l10n->t("The required folder was not found")];
+		}
+		if (!($folder->isCreatable() && $folder->isUpdateable())) {
 			return ["message" => $this->l10n->t("You don't have enough permission")];
-        }
+		}
 
-        try {
+		try {
 			$template = file_get_contents(dirname(__DIR__) . "/../sources/images/pea.psd");
 
-            if (\version_compare(\implode(".", \OCP\Util::getVersion()), "19", "<")) {
-                $file = $folder->newFile($name);
+			if (\version_compare(\implode(".", \OCP\Util::getVersion()), "19", "<")) {
+				$file = $folder->newFile($name);
 
-                $file->putContent($template);
-            } else {
-                $file = $folder->newFile($name, $template);
-            }
-        } catch (NotPermittedException $e) {
-            return ["error" => "Can't create file"];
-        }
+				$file->putContent($template);
+			} else {
+				$file = $folder->newFile($name, $template);
+			}
+		} catch (NotPermittedException $e) {
+			return ["error" => "Can't create file"];
+		}
 
 		$fileInfo = $file->getFileInfo();
 
@@ -132,11 +132,11 @@ class FileController extends Controller {
 					}
 				}
 
-				$ext = strtoupper(pathinfo($path, PATHINFO_EXTENSION));
+				$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
 				if (empty($path) || strpos($path,".") === false || !in_array($ext, 
-				["PSD","AI","XCF","Sketch","XD","FIG","PXD","CDR","SVG","EPS","PDF","PDN","WMF","EMF","PNG","JPG","GIF","WebP","ICO","BMP",
-				"PPM","PGM","PBM","TIFF","DDS","IFF","TGA","DNG","NEF","CR2","ARW","RAF","GPR","3FR","FFF"])) {
+				["psd","ai","xcf","sketch","xd","fig","pxd","cdr","svg","eps","pdf","pdn","wmf","emf","png","jpg","gif","webp","ico","bmp",
+				"ppm","pgm","pbm","tiff","dds","iff","tga","dng","nef","cr2","arw","raf","gpr","3fr","fff"])) {
 					fclose($fi);
 					return ["message"=> $this->l10n->t("File format error")];
 				}
@@ -158,6 +158,41 @@ class FileController extends Controller {
 		}
 
 		return ["message"=> $this->l10n->t("Cant write to file")];
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 * @PublicPage
+	 * 
+	 * @param string $path
+	 */
+	public function static(string $path) {
+
+		$path = str_replace(array("'",'#','=','`','$','%','&',';','..'), '', $path);
+		$path = rtrim(preg_replace('/(\/){2,}|(\\\){1,}/', '/', $path), '/');
+
+		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+		if (empty($path) || strpos($path,".") === false || !in_array($ext, 
+		["json","zip","csh","wasm","psd","woff","woff2","otf","ttf"])) {
+			return ["message"=> $this->l10n->t("File format error")];
+		}
+
+		$contentType = [
+			"json" => "application/json",
+			"zip" => "application/zip",
+			"csh" => "application/x-csh",
+			"wasm" => "application/wasm",
+			"psd" => "application/x-photoshop",
+			"woff" => "application/font-woff",
+			"woff2" => "application/font-woff2",
+			"otf" => "application/x-font-opentype",
+			"ttf" => "application/x-font-ttf",
+		];
+
+		$content = file_get_contents(dirname(__DIR__) . "/../sources/" . $path);
+		return new DataDownloadResponse($content, "", $contentType[$ext]);
 	}
 
 	/**
