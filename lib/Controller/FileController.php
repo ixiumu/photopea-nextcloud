@@ -1,5 +1,5 @@
 <?php
-namespace OCA\Files_Photopea\Controller;
+namespace OCA\Photopea\Controller;
 
 use OCP\IRequest;
 use OCP\AppFramework\Controller;
@@ -9,6 +9,7 @@ use OCP\Http\Client\IClientService;
 use OCP\Files\IRootFolder;
 use OCA\Files\Helper;
 use OCP\IL10N;
+use OCP\IURLGenerator;
 
 class FileController extends Controller {
 	
@@ -24,17 +25,22 @@ class FileController extends Controller {
 	/** @var IL10N */
 	private $l10n;
 
+	/** @var IURLGenerator */
+	protected $urlGenerator;
+
 	public function __construct($AppName,
 								IRequest $request,
 								IRootFolder $storage,
 								IClientService $clientService,
 								IL10N $l10n,
+								IURLGenerator $urlGenerator,
 								$UserId){
 		parent::__construct($AppName, $request);
 		$this->UserId = $UserId;
 		$this->storage = $storage;
 		$this->clientService = $clientService;
 		$this->l10n = $l10n;
+		$this->urlGenerator = $urlGenerator;
 	}
 
 	/**
@@ -44,7 +50,7 @@ class FileController extends Controller {
 	 * @param string $path
 	 */
 	public function get(string $path) {
-		return new RedirectResponse("/remote.php/webdav/" . $path);
+		return new RedirectResponse(\OC::$WEBROOT . "/remote.php/webdav/" . $path);
 	}
 
 	/**
@@ -99,10 +105,8 @@ class FileController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $path
 	 */
-	public function put(string $path) {
-
+	public function save() {
 		$userFolder = $this->storage->getUserFolder($this->UserId);
 
 		if ($userFolder instanceof File) {
@@ -117,9 +121,10 @@ class FileController extends Controller {
 			$p = JSON_decode(fread($fi, 2000));
 
 			if (!empty($p->source)) {
-				$path = null;
-				if (substr($p->source , 0 , 4) === "http") {
-					$path = substr($p->source, strripos($p->source, "/apps/files_photopea/io/") + 24);
+				$purl = \OC::$WEBROOT . '/apps/photopea/d/';
+
+				if (substr($p->source , 0 , 4) === "http" || substr($p->source , 0 , strlen($purl)) === $purl) {
+					$path = substr($p->source, strripos($p->source, $purl) + strlen($purl));
 				} else {
 					$source = explode(",", $p->source);
 
@@ -175,7 +180,7 @@ class FileController extends Controller {
 		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
 		if (empty($path) || strpos($path,".") === false || !in_array($ext, 
-		["json","zip","csh","wasm","psd","woff","woff2","otf","ttf"])) {
+		["json","zip","csh","wasm","psd","woff","woff2","otf","ttf","webp"])) {
 			return ["message"=> $this->l10n->t("File format error")];
 		}
 
@@ -189,6 +194,7 @@ class FileController extends Controller {
 			"woff2" => "application/font-woff2",
 			"otf" => "application/x-font-opentype",
 			"ttf" => "application/x-font-ttf",
+			"webp" => "image/webp",
 		];
 
 		$content = file_get_contents(dirname(__DIR__) . "/../sources/" . $path);

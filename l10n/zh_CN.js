@@ -1,6 +1,7 @@
 OC.L10N.register(
-    "files_photopea",
+    "photopea",
     {
+        "Photopae" : "图片编辑",
         "New PSD file": "新建 PSD 文件",
         "New File.psd": "新建文件.psd",
         "File created": "文件创建成功",

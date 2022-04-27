@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\Files_Photopea\AppInfo;
+namespace OCA\Photopea\AppInfo;
 
 use OC\Files\Type\Detection;
 use OCP\AppFramework\App;
 
 class Application extends App {
-    const APPNAME = 'files_photopea';
+    const APPNAME = 'photopea';
 
 	public function __construct(array $urlParams = array()) {
 		parent::__construct(self::APPNAME, $urlParams);

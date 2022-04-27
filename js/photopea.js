@@ -4,7 +4,7 @@ var Photopea = {
 	_fileList: null,
 	_lastTitle: '',
 	_extensions: [],
-	_editor: OC.generateUrl('/apps/files_photopea/sources/index.html'),
+	_editor: OC.generateUrl('/apps/photopea/sources/index.html'),
 	registerExtension: function(objs) {
 		var self = this;
 		if (!Array.isArray(objs)) {
@@ -41,15 +41,19 @@ var Photopea = {
 	},
 	show: function() {
 		var self = this;
-		var $iframe;
-		var shown = true;
-		var viewer = OC.generateUrl('/apps/files_photopea/sources/index.html');
-		var api = window.location.origin+OC.generateUrl('/apps/files_photopea/io');
-		var url = viewer+'#'+encodeURI('{"files":["'+api+this._file.fullName+'"],"resources":[],"server":{"version":1,"url":"'+api+'/api","formats":["'+this._file.fullName.split('.').pop().toUpperCase()+'"]}}');
+		var viewer = OC.generateUrl('/apps/photopea/sources/index.html');
+		var api = OC.generateUrl('/apps/photopea/api');
+		
+		// static html
+		//var url = viewer+'#'+encodeURI('{"files":["'+api+this._file.fullName+'"],"resources":[],"server":{"version":1,"url":"'+api+'/api","formats":["'+this._file.fullName.split('.').pop().toUpperCase()+'"]}}');
+		//window.open(url);
 
-		window.open(url);
+		// app
+		var url = OC.generateUrl('/apps/photopea/')+'?name='+this._file.name+'&dir='+this._file.dir;
+		window.location.href = url;
 
-		// $iframe = $('<iframe id="peaframe" style="width:100%;height:100%;display:block;position:absolute;top:0;z-index:1999;padding-top:inherit;" src=\''+url+'\' sandbox="allow-scripts allow-same-origin allow-downloads allow-popups allow-modals allow-top-navigation allow-presentation" allowfullscreen="true"/>');
+		// pop
+		// var $iframe = $('<iframe id="peaframe" style="width:100%;height:100%;display:block;position:absolute;top:0;z-index:1999;padding-top:inherit;" src=\''+url+'\' sandbox="allow-scripts allow-same-origin allow-downloads allow-popups allow-modals allow-top-navigation allow-presentation" allowfullscreen="true"/>');
 
 		// if ($('#isPublic').val()) {
 		// 	// force the preview to adjust its height
@@ -162,8 +166,8 @@ Photopea.NewFileMenuPlugin = {
 		// register the new menu entry
 		menu.addMenuEntry({
 			id: 'photopeafile',
-			displayName: t('files_photopea', 'New PSD file'),
-			templateName: t('files_photopea', 'New File.psd'),
+			displayName: t('photopea', 'New PSD file'),
+			templateName: t('photopea', 'New File.psd'),
 			iconClass: 'icon-image',
 			fileType: 'x-photoshop',
 			actionHandler: function(name) {
@@ -172,7 +176,7 @@ Photopea.NewFileMenuPlugin = {
 				// 	//
 				// });
 				
-				$.post(OC.generateUrl('apps/files_photopea/create'),
+				$.post(OC.generateUrl('apps/photopea/api/create'),
 				{
 					name: name,
 					dir: dir
@@ -184,7 +188,7 @@ Photopea.NewFileMenuPlugin = {
 					}
 
 					menu.fileList.add(response, { animate: true });
-					OCP.Toast.success(t('files_photopea', 'File created'));
+					OCP.Toast.success(t('photopea', 'File created'));
 				});
 			}
 		});

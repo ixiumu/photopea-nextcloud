@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\Files_Photopea\AppInfo;
+namespace OCA\Photopea\AppInfo;
 
 use OC\Security\CSP\ContentSecurityPolicy;
 
@@ -8,7 +8,7 @@ $eventDispatcher = \OC::$server->getEventDispatcher();
 
 if (\OC::$server->getUserSession()->isLoggedIn()) {
     $eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function() {
-        \OCP\Util::addScript('files_photopea', 'photopea');
+        \OCP\Util::addScript('photopea', 'photopea');
     });
 }
 

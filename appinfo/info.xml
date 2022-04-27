@@ -1,18 +1,27 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>files_photopea</id>
+    <id>photopea</id>
     <name>Photopea</name>
     <summary>Online Photo Editor</summary>
     <description><![CDATA[Photopea Online Photo Editor lets you edit photos, apply effects, filters, add text, crop or resize pictures. Do Online Photo Editing in your browser for free!]]></description>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <licence>agpl</licence>
     <author>xiumu</author>
-    <namespace>Files_Photopea</namespace>
+    <namespace>Photopea</namespace>
 	<category>files</category>
 	<category>office</category>
-    <bugs>https://www.photopea.com/</bugs>
+    <website>https://github.com/ixiumu/files_photopea</website>
+    <bugs>https://github.com/ixiumu/files_photopea/issues</bugs>
+    <repository type="git">https://github.com/ixiumu/files_photopea.git</repository>
     <dependencies>
-        <nextcloud min-version="14" max-version="24"/>
+        <nextcloud min-version="19" max-version="24" />
     </dependencies>
+    <navigations>
+        <navigation>
+			<id>photopea</id>
+			<name>Photopae</name>
+			<route>photopea.page.index</route>
+        </navigation>
+    </navigations>
 </info>
