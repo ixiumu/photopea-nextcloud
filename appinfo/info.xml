@@ -5,7 +5,7 @@
     <name>Photopea</name>
     <summary>Online Photo Editor</summary>
     <description><![CDATA[Photopea Online Photo Editor lets you edit photos, apply effects, filters, add text, crop or resize pictures. Do Online Photo Editing in your browser for free!]]></description>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <licence>agpl</licence>
     <author>xiumu</author>
     <namespace>Photopea</namespace>
@@ -15,7 +15,7 @@
     <bugs>https://github.com/ixiumu/files_photopea/issues</bugs>
     <repository type="git">https://github.com/ixiumu/files_photopea.git</repository>
     <dependencies>
-        <nextcloud min-version="19" max-version="24" />
+        <nextcloud min-version="19" max-version="25" />
     </dependencies>
     <navigations>
         <navigation>

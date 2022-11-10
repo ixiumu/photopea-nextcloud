@@ -168,7 +168,7 @@ Photopea.NewFileMenuPlugin = {
 			id: 'photopeafile',
 			displayName: t('photopea', 'New PSD file'),
 			templateName: t('photopea', 'New File.psd'),
-			iconClass: 'icon-image',
+            iconClass: 'icon-picture',
 			fileType: 'x-photoshop',
 			actionHandler: function(name) {
 				var dir = menu.fileList.getCurrentDirectory();
